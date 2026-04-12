@@ -221,11 +221,49 @@ kadai-e() {
     fi
 }
 
+kadai-f() {
+  if [ -d kadai-f ]; then
+    cp -r kadai-f $dir
+    pushd $dir/kadai-f > /dev/null 2>&1
+
+    if [ -f Makefile ]; then
+      warn "kadai-f: Missing Makefile."
+    fi
+
+    make hello > /dev/null 2>&1
+
+    if [ ! -f hello ]; then
+      warn "kadai-f: Failed to generate the binary(hello) with '$ make hello'."
+    fi
+
+    out=$(./hello)
+    if [ ! -n "$out" ]; then
+      warn "kadai-f: hello binary output is empty."
+    fi
+
+    make clean > /dev/null 2>&1
+
+    if [ -f hello ]; then
+      warn "kadai-f: Failed to remove the binary(hello) with '$make clean'."
+    fi
+
+    if [ ! -z "`find . -name \*.o`" ]; then
+      warn "kadai-f: Failed to remove object files(*.o) with '$ make clean'."
+    fi
+
+    if [ `grep '\-Wall' Makefile | wc -l` -eq 0 ]; then
+      warn "kadai-f: Missing '-Wall' option."
+    fi
+
+    popd > /dev/null 2>&1
+  fi
+}
+
 if [ $# -eq 0 ]; then
     echo "#############################################"
     echo "Running tests..."
 fi
-for arg in {a..e}; do
+for arg in {a..f}; do
     if [ $# -eq 0 ] || [[ "$@" == *"$arg"* ]]; then kadai-$arg; fi
 done
 if [ $# -eq 0 ]; then
