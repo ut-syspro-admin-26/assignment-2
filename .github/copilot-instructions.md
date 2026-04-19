@@ -15,6 +15,8 @@ In the Pull request overview, provide the following information for each problem
 3. If the problem has optional requirements, which are met and which aren't met
 4. Any critical issues (if any), without suggesting how to address them
 
+If any additional reports are attached, mention them in the overview as well.
+
 ### Inline comment standards
 
 - Ignore minor issues.
