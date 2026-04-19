@@ -226,7 +226,7 @@ kadai-f() {
     cp -r kadai-f $dir
     pushd $dir/kadai-f > /dev/null 2>&1
 
-    if [ -f Makefile ]; then
+    if [ ! -f Makefile ]; then
       warn "kadai-f: Missing Makefile."
     fi
 
